@@ -1,0 +1,1 @@
+{"devices":[{"type":"temperature","name":"temperature","data":{}},{"type":"barometer","name":"barometer","data":{}},{"type":"humidity","name":"humidity","data":{}},{"type":"sound","name":"sound","data":{}},{"type":"photocell","name":"lumosity","data":{}}]}
