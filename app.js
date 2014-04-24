@@ -5,7 +5,19 @@ var HelloApp = module.exports = function() {
 
 HelloApp.prototype.init = function(zetta) {
   zetta
+    .observe('type="iphone"')
+    .subscribe(function(d) {
+      zetta.expose(d);
+    });
+
+  zetta
     .observe('type="arm"')
+    .subscribe(function(d) {
+      zetta.expose(d);
+    });
+
+  zetta
+    .observe('type="huehub"')
     .subscribe(function(d) {
       zetta.expose(d);
     });

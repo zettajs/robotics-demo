@@ -5,6 +5,7 @@ var uuid = require('node-uuid');
 
 var BasicUdpScout = module.exports = function(){
   this.server = new DeviceServer();
+  this.drivers = [];
 }
 util.inherits(BasicUdpScout, EventEmitter);
 
