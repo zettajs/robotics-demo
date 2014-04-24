@@ -5,6 +5,12 @@ var HelloApp = module.exports = function() {
 
 HelloApp.prototype.init = function(zetta) {
   zetta
+    .observe('type="screen"')
+    .subscribe(function(d) {
+      zetta.expose(d);
+    });
+
+  zetta
     .observe('type="iphone"')
     .subscribe(function(d) {
       zetta.expose(d);
