@@ -25,6 +25,8 @@ RobotArmDriver.prototype.init = function(config) {
     .when('elbow-down', { allow: [] })
     .when('pivot-left', { allow: [] })
     .when('pivot-right', { allow: [] })
+    .when('shoulder-up', { allow: [] })
+    .when('shoulder-down', { allow: []})
     .map('open-claw', this.openClaw)
     .map('close-claw', this.closeClaw)
     .map('elbow-up', this.elbowUp)

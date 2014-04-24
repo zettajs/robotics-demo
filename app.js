@@ -6,36 +6,28 @@ var HelloApp = module.exports = function() {
 HelloApp.prototype.init = function(zetta) {
   zetta
     .observe('type="screen"')
-    .subscribe(function(d) {
-      zetta.expose(d);
+    .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'))
+    .first()
+    .subscribe(function(devices) {
+      var screen = devices[0];
+      var arm = devices[1];
+      var huehub = devices[2];
+
+      var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];
+      armTransitions.forEach(function(transition) {
+        arm.on(transition, function(){
+          screen.call('write', 'The arm just transitioned with ' + transition +'!');
+          huehub.call('blink');
+        });
+      });
+
+      zetta.expose(screen);
+      zetta.expose(arm);
+      zetta.expose(huehub);
     });
 
   zetta
     .observe('type="iphone"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="arm"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="huehub"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-   zetta
-    .observe('type="phone"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-  
-  zetta
-    .observe('type="lcd"')
     .subscribe(function(d) {
       zetta.expose(d);
     });
