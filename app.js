@@ -16,8 +16,9 @@ HelloApp.prototype.init = function(zetta) {
       var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];
       armTransitions.forEach(function(transition) {
         arm.on(transition, function(){
-          screen.call('write', 'The arm just transitioned with ' + transition +'!');
-          huehub.call('blink');
+          screen.call('write', 'arm: ' + transition, function(){
+            huehub.call('blink');
+          });
         });
       });
 
