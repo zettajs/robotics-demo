@@ -32,10 +32,7 @@ RobotArmDriver.prototype.init = function(config) {
     .map('shoulder-up', this.shoulderUp)
     .map('shoulder-down', this.shoulderDown)
     .map('pivot-left', this.pivotLeft)
-    .map('pivot-right', this.pivotRight)
-    .stream('x', this.streamX)
-    .stream('y', this.streamY)
-    .stream('z', this.streamZ);
+    .map('pivot-right', this.pivotRight);
 };
 
 RobotArmDriver.prototype.streamX = function(emitter) {

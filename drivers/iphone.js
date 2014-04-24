@@ -31,18 +31,22 @@ Phone.prototype.change = function(x, y, z, cb) {
   this.accelerometer.y = y;
   this.accelerometer.z = z;
 
-  console.log('accelerometer:', this.accelerometer);
-
   if (this._xEmitter) {
-    this._xEmitter.emit('data', this.accelerometer.x);
+    if (this.accelerometer.x) {
+      this._xEmitter.emit('data', this.accelerometer.x);
+    }
   }
 
   if (this._yEmitter) {
-    this._yEmitter.emit('data', this.accelerometer.y);
+    if (this.accelerometer.y) {
+      this._yEmitter.emit('data', this.accelerometer.y);
+    }
   }
 
   if (this._zEmitter) {
-    this._zEmitter.emit('data', this.accelerometer.z);
+    if (this.accelerometer.z) {
+      this._zEmitter.emit('data', this.accelerometer.z);
+    }
   }
 
   if (cb) {

@@ -12,7 +12,7 @@ var ScreenScout = module.exports = function() {
 util.inherits(ScreenScout, EventEmitter);
 
 ScreenScout.prototype.init = function(next) {
-  this._serialPort = new serialport.SerialPort('/dev/tty.usbmodem1411', {
+  this._serialPort = new serialport.SerialPort('/dev/tty.usbmodem1421', {
     baudRate: 9600,
     parser: serialport.parsers.readline('\r')
   });
