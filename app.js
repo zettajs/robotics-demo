@@ -4,6 +4,7 @@ var HelloApp = module.exports = function() {
 };
 
 HelloApp.prototype.init = function(zetta) {
+
   zetta
     .observe('type="screen"')
     .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'))
@@ -21,45 +22,9 @@ HelloApp.prototype.init = function(zetta) {
           });
         });
       });
-
-      zetta.expose(screen);
-      zetta.expose(arm);
-      zetta.expose(huehub);
     });
 
-  zetta
-    .observe('type="iphone"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="barometer"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="humidity"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-  
-  zetta
-    .observe('type="sound"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="photocell"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
-
-  zetta
-    .observe('type="temperature"')
-    .subscribe(function(d) {
-      zetta.expose(d);
-    });
+  zetta.on('deviceready',function(device){
+    zetta.expose(device);
+  });
 };
