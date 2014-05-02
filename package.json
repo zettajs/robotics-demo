@@ -18,6 +18,7 @@
   "homepage": "https://github.com/zettajs/robotics-demo",
   "dependencies": {
     "serialport": "^1.4.0",
-    "zetta-hue-driver": "0.0.5"
+    "zetta-hue-driver": "0.0.6",
+    "node-uuid": "^1.4.1"
   }
 }
