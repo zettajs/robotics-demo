@@ -1,3 +1,4 @@
+var System = require('./system');
 
 var HelloApp = module.exports = function() {
   this.name = 'hello';
@@ -17,8 +18,8 @@ HelloApp.prototype.init = function(zetta) {
       var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];
       armTransitions.forEach(function(transition) {
         arm.on(transition, function(){
-          screen.call('change', 'arm: ' + transition, function(){
-            huehub.call('blink');
+          screen.call('change', 'arm: ' + transition, function() {
+            huehub.call('blink'); 
           });
         });
       });
@@ -27,4 +28,7 @@ HelloApp.prototype.init = function(zetta) {
   zetta.on('deviceready',function(device){
     zetta.expose(device);
   });
+
+  var system = zetta.configure(System);
+  zetta.expose(system);
 };
