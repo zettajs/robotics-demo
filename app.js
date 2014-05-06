@@ -1,6 +1,6 @@
 
 var HelloApp = module.exports = function() {
-  this.name = 'hello';
+  this.name = process.env.APP_NAME || 'hello';
 };
 
 HelloApp.prototype.init = function(zetta) {
