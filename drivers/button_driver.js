@@ -1,5 +1,3 @@
-var throttleEvent = require('throttle-event');
-
 var ButtonDriver = module.exports = function() {
   this.type = 'button';
   this.name = 'ActivateButton';
