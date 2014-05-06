@@ -13,8 +13,10 @@ SoundDriver.prototype.init = function(config) {
 };
 
 SoundDriver.prototype.streamSound = function(emitter) {
+  var self = this;
   this._emitter.on('sound', function(data) {
     emitter.emit('data', data);
+    self.emit('update', data);
   });
 };
 
