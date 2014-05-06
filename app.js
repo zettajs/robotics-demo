@@ -10,6 +10,7 @@ HelloApp.prototype.init = function(zetta) {
      .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'), zetta.observe('type="screen"'))
      .first()
      .subscribe(function(devices){
+       console.log('Found all devices')
        var button = devices[0];
        var arm = devices[1];
        var huehub = devices[2];       
