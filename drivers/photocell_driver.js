@@ -2,7 +2,7 @@ var iphash = require('../lib/iphash');
 
 var PhotocellDriver = module.exports = function(id, emitter, ip) {
   this.type = 'photocell';
-  this.name = 'lumosity-'+iphash(ip);
+  this.name = 'luminosity-'+iphash(ip);
   this._emitter = emitter;
   this.data = {};
   this.id = id;
