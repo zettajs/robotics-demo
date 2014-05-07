@@ -1,3 +1,4 @@
+var System = require('./system');
 
 var HelloApp = module.exports = function() {
   this.name = process.env.APP_NAME || 'hello';
@@ -90,4 +91,7 @@ HelloApp.prototype.init = function(zetta) {
   zetta.on('deviceready',function(device){
     zetta.expose(device);
   });
+
+  var system = zetta.configure(System);
+  zetta.expose(system);
 };

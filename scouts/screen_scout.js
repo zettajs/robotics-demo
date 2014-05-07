@@ -19,12 +19,19 @@ ScreenScout.prototype.init = function(next) {
   });
 
   var self = this;
-  this._serialPort.on('open', function() {
+  this._serialPort.on('open', function(err) {
+    if (err) {
+      console.log('error on open:', err);
+    }
     self._serialPort.on('data', function(data) {
       if (data === 'ready') {
         self.emit('discover', ScreenDriver, self._serialPort, 'touch-screen');
       }
     })
+  });
+
+  this._serialPort.on('error', function(err) {
+    console.log('error on serialport:', err);
   });
 
   next();
