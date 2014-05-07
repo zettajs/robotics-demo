@@ -10,15 +10,20 @@
 MPL3115A2 pressureSensor;
  
 int status = WL_IDLE_STATUS;
+
 char ssid[] = "Loft21";
 char pass[] = "silkylotus997";
+
+//char ssid[] = "apigeedemo";  //  your network SSID (name)
+//char pass[] = "apigeelabs";       // your network password
+
 unsigned int localPort = 4097;
 unsigned int remote = 5000;
  
 boolean zettaAck = true;
  
 IPAddress zettaServer;
-IPAddress broadcastServer(255, 255, 255, 255);
+IPAddress broadcastServer;
  
 byte packetBuffer[ACK_PACKET_SIZE];
  
@@ -120,6 +125,19 @@ void printWifiStatus() {
   IPAddress ip = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(ip);
+  
+  // lockdown broadcast 
+  IPAddress netmask = WiFi.subnetMask();
+  
+  Serial.print("Netmask Address: ");
+  Serial.println(netmask);
+    
+  for(int i=0;i<4;i++){
+    broadcastServer[i] = ip[i] | (netmask[i] ^ 255);
+  }
+  
+  Serial.print("Broadcast Address: ");
+  Serial.println(broadcastServer);
   
   long rssi = WiFi.RSSI();
   Serial.print("Signal strength (RSSI):");
