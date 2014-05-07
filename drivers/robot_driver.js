@@ -1,8 +1,9 @@
 var Robot = require('../lib/robot_lib');
+var iphash = require('../lib/iphash');
 
 var RobotArmDriver = module.exports = function(id, socket, port, ip) {
   this.type = 'arm';
-  this.name = 'arm';
+  this.name = 'arm-'+iphash(ip);
   this.data = {};
   this.id = id;
   this._socket = socket;

@@ -1,6 +1,8 @@
-var TemperatureDriver = module.exports = function(id, emitter) {
+var iphash = require('../lib/iphash');
+
+var TemperatureDriver = module.exports = function(id, emitter, ip) {
   this.type = 'temperature';
-  this.name = 'temperature';
+  this.name = 'temperature-'+iphash(ip);
   this._emitter = emitter;
   this.data = {};
   this.id = id;

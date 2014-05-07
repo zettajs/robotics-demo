@@ -1,6 +1,8 @@
-var BarometerDriver = module.exports = function(id, emitter) {
+var iphash = require('../lib/iphash');
+
+var BarometerDriver = module.exports = function(id, emitter, ip) {
   this.type = 'barometer';
-  this.name = 'barometer';
+  this.name = 'barometer-'+iphash(ip);
   this._emitter = emitter;
   this.data = {};
   this.id = id;

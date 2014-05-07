@@ -1,6 +1,8 @@
-var PhotocellDriver = module.exports = function(id, emitter) {
+var iphash = require('../lib/iphash');
+
+var PhotocellDriver = module.exports = function(id, emitter, ip) {
   this.type = 'photocell';
-  this.name = 'lumosity';
+  this.name = 'lumosity-'+iphash(ip);
   this._emitter = emitter;
   this.data = {};
   this.id = id;

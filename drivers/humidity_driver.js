@@ -1,6 +1,8 @@
-var HumidityDriver = module.exports = function(id, emitter) {
+var iphash = require('../lib/iphash');
+
+var HumidityDriver = module.exports = function(id, emitter, ip) {
   this.type = 'humidity';
-  this.name = 'humidity';
+  this.name = 'humidity-'+iphash(ip);
   this._emitter = emitter;
   this.data = {};
   this.id = id;
