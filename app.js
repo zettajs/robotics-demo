@@ -1,7 +1,7 @@
 var System = require('./system');
 
 var HelloApp = module.exports = function() {
-  this.name = process.env.APP_NAME || 'hello';
+  this.name = process.env.APP_NAME || 'minifactory';
 };
 
 HelloApp.prototype.init = function(zetta) {
