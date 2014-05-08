@@ -2,7 +2,7 @@ var System = require('./system');
 var GoCrazy = require('./gocrazy');
 
 var HelloApp = module.exports = function() {
-  this.name = process.env.APP_NAME || 'hello';
+  this.name = process.env.APP_NAME || 'minifactory';
 };
 
 HelloApp.prototype.init = function(zetta) {
