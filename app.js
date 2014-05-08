@@ -1,4 +1,5 @@
 var System = require('./system');
+var GoCrazy = require('./gocrazy');
 
 var HelloApp = module.exports = function() {
   this.name = process.env.APP_NAME || 'hello';
@@ -8,20 +9,14 @@ HelloApp.prototype.init = function(zetta) {
 
   zetta
      .observe('type="button"')
-     .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'), zetta.observe('type="screen"'))
+     .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'), zetta.observe('type="screen"'), zetta.observe('type="apigee"') )
      .first()
      .subscribe(function(devices){
        console.log('Logic Button Ready')
        var button = devices[0];
-       var arm = devices[1];
-       var huehub = devices[2];       
-       var screen = devices[3];
-       
+       var gocrazy = new GoCrazy(devices[1],devices[2],devices[3],devices[4]);
        button.on('click',function(){
-	 arm.call('pivot-right');
-	 screen.call('change','Button Pressed!!!');
-	 if(huehub.registerd)
-	   huehub.call('blink');
+	 gocrazy.notify();
        });
      });
 
@@ -46,14 +41,12 @@ HelloApp.prototype.init = function(zetta) {
 
   zetta
      .observe('type="sound"')
-     .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'), zetta.observe('type="screen"') )
+     .zip(zetta.observe('type="arm"'), zetta.observe('type="huehub"'), zetta.observe('type="screen"'), zetta.observe('type="apigee"') )
      .first()
      .subscribe(function(devices){
        console.log('Logic Sound Ready')
        var sound = devices[0];
-       var arm = devices[1];
-       var huehub = devices[2];       
-       var screen = devices[3];
+       var gocrazy = new GoCrazy(devices[1],devices[2],devices[3],devices[4]);
        
        var lastY = undefined;
        var dy = undefined;
@@ -79,10 +72,7 @@ HelloApp.prototype.init = function(zetta) {
 	   R.push(dy);
 
 	   if(Math.abs(R[0]) < low && R[1] > high && R[2] < (0-high) ){
-	     screen.call('change','Someone Clapped!');
-	     if(huehub.registerd)
-	       huehub.call('blink');
-	     arm.call('pivot-right');
+	     gocrazy.notify();
 	   }
 	 }	 
        });
