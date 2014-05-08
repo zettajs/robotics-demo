@@ -12,6 +12,7 @@ void setup() {
   Bridge.begin();	// Initialize the Bridge
   Serial.begin(9600);	// Initialize the Serial
   pinMode(PIN_BUTTON_IN,INPUT);
+  delay(500);
   while (!Serial);
   Serial.println("Ready");
 }
