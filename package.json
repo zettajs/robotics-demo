@@ -20,6 +20,7 @@
     "serialport": "^1.4.0",
     "zetta-hue-driver": "0.0.7",
     "node-uuid": "^1.4.1",
-    "zetta-apigee-driver": "0.0.4"
+    "zetta-apigee-driver": "0.0.4",
+    "async": "^0.8.0"
   }
 }
