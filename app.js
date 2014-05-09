@@ -1,5 +1,8 @@
 var System = require('./system');
 var GoCrazy = require('./gocrazy');
+var ClapperLogic = require('./clapper_logic');
+
+var Scientist = require('zetta-runtime').scientist;
 
 var HelloApp = module.exports = function() {
   this.name = process.env.APP_NAME || 'minifactory';
@@ -47,36 +50,8 @@ HelloApp.prototype.init = function(zetta) {
        console.log('Logic Sound Ready')
        var sound = devices[0];
        var gocrazy = new GoCrazy(devices[1],devices[2],devices[3],devices[4]);
-       
-       var lastY = undefined;
-       var dy = undefined;
-       
-       var Rs = 3;
-       var R = [];
-       var low = 30;
-       var high = 100;
-
-       sound.on('update', function(val){
-	 if(lastY === undefined){
-	   lastY = Number(val);
-	   return;
-	 }
-
-	 dy = val - lastY;
-	 lastY = Number(val);
-	 
-	 if(R.length < Rs){
-	   R.push(dy);
-	 }else{
-	   R.shift();
-	   R.push(dy);
-
-	   if(Math.abs(R[0]) < low && R[1] > high && R[2] < (0-high) ){
-	     gocrazy.notify();
-	   }
-	 }	 
-       });
-
+       var clapper = Scientist.configure(ClapperLogic,sound,gocrazy);
+       zetta.expose(clapper);
      });
 
   zetta.on('deviceready',function(device){

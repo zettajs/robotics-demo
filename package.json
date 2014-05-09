@@ -21,6 +21,7 @@
     "zetta-hue-driver": "0.0.8",
     "node-uuid": "^1.4.1",
     "zetta-apigee-driver": "0.0.4",
-    "async": "^0.8.0"
+    "async": "^0.8.0",
+    "zetta-runtime": "0.0.13"
   }
 }
