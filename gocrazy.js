@@ -38,7 +38,7 @@ GoCrazy.prototype._moveArm = function() {
   var self = this;
   function F(f,delay){
     return function(cb){
-      self.arm[f](function(){});
+      self.arm.call(f,function(){});
       setTimeout(cb,delay);
     };
   }
@@ -51,67 +51,67 @@ GoCrazy.prototype._moveArm = function() {
   
   var d = 200;
   async.series([
-    F('pivotRight',d),
-    F('pivotRight',d),
+    F('pivot-right',d),
+    F('pivot-right',d),
     D(d*2),
-    F('pivotLeft',d),
-    F('pivotLeft',d),
+    F('pivot-left',d),
+    F('pivot-left',d),
     D(d*2),
-    F('pivotRight',d),
-    F('pivotRight',d),
+    F('pivot-right',d),
+    F('pivot-right',d),
     D(d*2),
-    F('pivotLeft',d),
-    F('pivotLeft',d),
+    F('pivot-left',d),
+    F('pivot-left',d),
     D(d*2),    
-    F('pivotRight',d),
-    F('pivotRight',d),
+    F('pivot-right',d),
+    F('pivot-right',d),
     D(d*2),
-    F('pivotLeft',d),
-    F('pivotLeft',d),
+    F('pivot-left',d),
+    F('pivot-left',d),
   ],function(){});
 
   var d2 = 250;
   async.series([
-    F('elbowUp',d2),
-    F('elbowUp',d2),
+    F('elbow-up',d2),
+    F('elbow-up',d2),
     D(d2*2),
-    F('elbowDown',d2),
-    F('elbowDown',d2),
+    F('elbow-down',d2),
+    F('elbow-down',d2),
     D(d2*2),
-    F('elbowUp',d2),
-    F('elbowUp',d2),
+    F('elbow-up',d2),
+    F('elbow-up',d2),
     D(d2*2),
-    F('elbowDown',d2),
-    F('elbowDown',d2),
+    F('elbow-down',d2),
+    F('elbow-down',d2),
     D(d2*2),    
-    F('elbowUp',d2),
-    F('elbowUp',d2),
+    F('elbow-up',d2),
+    F('elbow-up',d2),
     D(d2*2),
-    F('elbowDown',d2),
-    F('elbowDown',d2),
+    F('elbow-down',d2),
+    F('elbow-down',d2),
   ],function(){});
 
 
 
   var d3 = 225;
   async.series([
-    F('shoulderUp',d3),
-    F('shoulderUp',d3),
+    F('shoulder-up',d3),
+    F('shoulder-up',d3),
     D(d3*2),
-    F('shoulderDown',d3),
-    F('shoulderDown',d3),
+    F('shoulder-down',d3),
+    F('shoulder-down',d3),
     D(d3*2),
-    F('shoulderUp',d3),
-    F('shoulderUp',d3),
+    F('shoulder-up',d3),
+    F('shoulder-up',d3),
     D(d3*2),
-    F('shoulderDown',d3),
-    F('shoulderDown',d3),
+    F('shoulder-down',d3),
+    F('shoulder-down',d3),
     D(d3*2),    
-    F('shoulderUp',d3),
-    F('shoulderUp',d3),
+    F('shoulder-up',d3),
+    F('shoulder-up',d3),
     D(d3*2),
-    F('shoulderDown',d3),
-    F('shoulderDown',d3),
+    F('shoulder-down',d3),
+    F('shoulder-down',d3),
   ],function(){});
 
 
