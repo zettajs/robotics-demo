@@ -112,6 +112,14 @@ GoCrazy.prototype._moveArm = function() {
     D(d3*2),
     F('shoulder-down',d3),
     F('shoulder-down',d3),
+    D(d3*2),    
+    F('shoulder-up',d3),
+    F('shoulder-up',d3),
+    D(d3*2),
+    D(d3*2),    
+    F('shoulder-up',d3),
+    F('shoulder-up',d3),
+
   ],function(){});
 
 
