@@ -98,8 +98,8 @@ void buttonPress(){
   Serial.println("Button Press");
   Process p1;
   Process p2;
-  p1.runShellCommandAsynchronously("/usr/bin/curl -i -X POST --data 'action=click' http://zetta-cloud.herokuapp.com/minifactory-detroit/ActivateButton");
-  p2.runShellCommandAsynchronously("/usr/bin/curl -i -X POST --data 'action=click' http://zetta-cloud.herokuapp.com/minifactory-san-francisco/ActivateButton");
+  p1.runShellCommandAsynchronously("/usr/bin/curl -i -X POST --data 'action=click' http://zetta-cloud.herokuapp.com/mini-factory-detroit/ActivateButton");
+  p2.runShellCommandAsynchronously("/usr/bin/curl -i -X POST --data 'action=click' http://zetta-cloud.herokuapp.com/mini-factory-san-francisco/ActivateButton");
   
   bool p1Running, p2Running;
   do{
