@@ -50,7 +50,7 @@ HelloApp.prototype.init = function(zetta) {
        console.log('Logic Sound Ready')
        var sound = devices[0];
        var gocrazy = new GoCrazy(devices[1],devices[2],devices[3],devices[4]);
-       var clapper = Scientist.configure(ClapperLogic,sound,gocrazy);
+       var clapper = Scientist.configure(ClapperLogic, sound, gocrazy);
        zetta.expose(clapper);
      });
 
