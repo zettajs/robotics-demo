@@ -10,7 +10,7 @@ util.inherits(Screen, Device);
 
 Screen.prototype.init = function(config) {
   config
-    .type('screen')
+    .type('display')
     .name('Display Screen')
     .state('ready')
     .when('ready', { allow: ['change']})
