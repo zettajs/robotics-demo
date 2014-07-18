@@ -5,7 +5,6 @@ var SoundSensor = require('./sound_sensor');
 var LightSensor = require('./light_sensor');
 
 var SoundLightSensors = module.exports = function(){
-  console.log('Sound light...')
   Scout.call(this);
   this.udpServer = new DeviceServer(5001);
   this.udpServer.name = 'SoundLightSensors';
