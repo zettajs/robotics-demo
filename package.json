@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/zettajs/robotics-demo",
   "dependencies": {
-    "serialport": "^1.4.0",
-    "zetta-hue-driver": "0.0.8",
-    "node-uuid": "^1.4.1",
-    "zetta-apigee-driver": "0.0.4",
     "async": "^0.8.0",
+    "node-uuid": "^1.4.1",
+    "serialport": "^1.4.0",
+    "zetta-apigee-driver": "0.0.4",
+    "zetta-hue-driver": "0.0.8",
     "zetta-runtime": "0.0.13"
   }
 }

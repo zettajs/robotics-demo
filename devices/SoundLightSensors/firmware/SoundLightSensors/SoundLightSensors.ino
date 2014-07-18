@@ -19,7 +19,7 @@ char pass[] = "silkylotus997";
 
  
 unsigned int localPort = 4097;
-unsigned int remote = 5000;
+unsigned int remote = 5001;
  
 boolean zettaAck = true;
  
