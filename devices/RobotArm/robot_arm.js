@@ -1,24 +1,21 @@
-var Robot = require('../lib/robot_lib');
-var iphash = require('../lib/iphash');
+var util = require('util');
+var Device = require('zetta').Device;
+var Robot = require('./robot_lib');
 
-var RobotArmDriver = module.exports = function(id, socket, port, ip) {
-  this.type = 'arm';
-  this.name = 'arm-'+iphash(ip);
-  this.data = {};
-  this.id = id;
+var RobotArm = module.exports = function(socket, port, ip) {
   this._socket = socket;
   this._port = port;
   this._robot = new Robot(socket, port, ip);
   this.ip = ip;
-  this.state = 'standby';
-  this.x = 0;
-  this.y = 0;
-  this.z = 0;
-  this.led = false;
+  Device.call(this);
 };
+util.inherits(RobotArm, Device);
 
-RobotArmDriver.prototype.init = function(config) {
+RobotArm.prototype.init = function(config) {
   config
+    .type('arm')
+    .name('Robot Arm')
+    .state('standby')
     .when('standby', { allow: ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right']})
     .when('open-claw', { allow: [] })
     .when('close-claw', { allow: []})
@@ -39,14 +36,14 @@ RobotArmDriver.prototype.init = function(config) {
     .map('pivot-right', this.pivotRight);
 };
 
-RobotArmDriver.prototype.standby = function(cb) {
+RobotArm.prototype.standby = function(cb) {
   this.state = 'standby';
   if(cb) {
     cb();
   }
 };
 
-RobotArmDriver.prototype.openClaw = function(cb) {
+RobotArm.prototype.openClaw = function(cb) {
   this.state = 'open-claw';
   var self = this;
   this._robot.openGripper(function() {
@@ -55,7 +52,7 @@ RobotArmDriver.prototype.openClaw = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.closeClaw = function(cb) {
+RobotArm.prototype.closeClaw = function(cb) {
   this.state = 'close-claw';
   var self = this;
   this._robot.closeGripper(function() {
@@ -64,7 +61,7 @@ RobotArmDriver.prototype.closeClaw = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.elbowUp = function(cb) {
+RobotArm.prototype.elbowUp = function(cb) {
   this.state = 'elbow-up';
   var self = this;
   this._robot.elbowUp(function() {
@@ -73,7 +70,7 @@ RobotArmDriver.prototype.elbowUp = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.elbowDown = function(cb) {
+RobotArm.prototype.elbowDown = function(cb) {
   this.state = 'elbow-down';
   var self = this;
   this._robot.elbowDown(function() {
@@ -82,7 +79,7 @@ RobotArmDriver.prototype.elbowDown = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.shoulderUp = function(cb) {
+RobotArm.prototype.shoulderUp = function(cb) {
   this.state = 'shoulder-up';
   var self = this;
   this._robot.shoulderUp(function() {
@@ -91,7 +88,7 @@ RobotArmDriver.prototype.shoulderUp = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.shoulderDown = function(cb) {
+RobotArm.prototype.shoulderDown = function(cb) {
   this.state = 'shoulder-down';
   var self = this;
   this._robot.shoulderDown(function() {
@@ -100,7 +97,7 @@ RobotArmDriver.prototype.shoulderDown = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.pivotLeft = function(cb) {
+RobotArm.prototype.pivotLeft = function(cb) {
   this.state = 'pivot-left';
   var self = this;
   this._robot.pivotLeft(function() {
@@ -109,7 +106,7 @@ RobotArmDriver.prototype.pivotLeft = function(cb) {
   });
 };
 
-RobotArmDriver.prototype.pivotRight = function(cb) {
+RobotArm.prototype.pivotRight = function(cb) {
   this.state = 'pivot-right';
   var self = this;
   this._robot.pivotRight(function() {
