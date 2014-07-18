@@ -1,5 +1,4 @@
 var GoCrazy = require('./lib/gocrazy');
-var ClapperLogic = require('./lib/clapper_logic');
 
 var lower = 30;
 var upper = 100;
@@ -13,8 +12,7 @@ module.exports = function(server) {
   var apigee = server.where({ type: 'apigee' });
 
   server
-    .observe([sound, arm, huehub, display, apigee])
-    .subscribe(function(sound, arm, huehub, display, apigee){
+    .observe([sound, arm, huehub, display, apigee], function(sound, arm, huehub, display, apigee){
       server.log('Clapper Logic Activated');
       var gocrazy = new GoCrazy(arm, huehub, display, apigee);
       

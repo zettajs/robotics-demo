@@ -3,8 +3,7 @@ module.exports = function(server) {
   var huehub = server.where({ type: 'huehub' });
 
   server
-    .observe([arm, huehub])
-    .subscribe(function(arm, huehub){
+    .observe([arm, huehub], function(arm, huehub){
       server.log('Arm and Huehub blinking logic ready');
       
       var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];

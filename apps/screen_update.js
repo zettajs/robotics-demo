@@ -3,8 +3,7 @@ module.exports  = function(server) {
   var display = server.where({ type: 'display' });
 
   server
-    .observe([arm, display])
-    .subscribe(function(arm, display){
+    .observe([arm, display], function(arm, display){
       server.log('Arm and Screen update logic ready');
       
       var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];
