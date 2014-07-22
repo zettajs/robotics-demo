@@ -12,7 +12,7 @@ module.exports = function(server) {
   var apigee = server.where({ type: 'apigee' });
 
   server
-    .observe([sound, arm, huehub, display, apigee], function(sound, arm, huehub, display, apigee){
+    .observe([sound, arm, huehub, display, apigee], function(sound, arm, huehub, display, apigee) {
       server.log('Clapper Logic Activated');
       var gocrazy = new GoCrazy(arm, huehub, display, apigee);
       
@@ -24,7 +24,7 @@ module.exports = function(server) {
       sound.streams.level.on('data', function(msg) {
         var val = msg.data;
 
-        if(lastY === undefined) {
+        if (lastY === undefined) {
           lastY = Number(val);
           return;
         }
@@ -32,18 +32,16 @@ module.exports = function(server) {
         dy = val - lastY;
         lastY = Number(val);
         
-        if(R.length < Rs) {
+        if (R.length < Rs) {
           R.push(dy);
-        }else {
+        } else {
           R.shift();
           R.push(dy);
 
-          if(Math.abs(R[0]) < lower && R[1] > upper && R[2] < (0-upper) ){
+          if (Math.abs(R[0]) < lower && R[1] > upper && R[2] < (0-upper) ){
 	    gocrazy.notify();
           }
         }
       });
-
     });
-
 }

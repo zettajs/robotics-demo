@@ -6,7 +6,7 @@ var LightSensor = require('./light_sensor');
 
 var SoundLightSensors = module.exports = function(){
   Scout.call(this);
-  this.udpServer = new DeviceServer(5001);
+  this.udpServer = new DeviceServer(5000);
   this.udpServer.name = 'SoundLightSensors';
 }
 util.inherits(SoundLightSensors, Scout);

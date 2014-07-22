@@ -9,7 +9,7 @@ module.exports = function(server) {
       var armTransitions = ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right'];
       armTransitions.forEach(function(transition) {
         arm.on(transition, function(){
-          huehub.call('blink');
+          huehub.call('blink', function(){});
         });
       });
     });

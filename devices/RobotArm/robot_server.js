@@ -5,6 +5,7 @@ var util = require('util');
 
 var RobotServer = module.exports = function(){
   this.bots = [];
+  EventEmitter.call(this);
 };
 util.inherits(RobotServer, EventEmitter);
 

@@ -21,7 +21,7 @@ EnvSensors.prototype.init = function(next){
     } else if(stream === 'temperature') {
       self.initDevice('temperature', TemperatureSensor, rinfo);
     } else if(stream === 'pressure') {
-      self.initDevice('pressure', Barometer, rinfo);
+      self.initDevice('barometer', Barometer, rinfo);
     }
   });
   

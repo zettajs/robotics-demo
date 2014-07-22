@@ -17,14 +17,14 @@ RobotArm.prototype.init = function(config) {
     .name('Robot Arm')
     .state('standby')
     .when('standby', { allow: ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right']})
-    .when('open-claw', { allow: [] })
-    .when('close-claw', { allow: []})
-    .when('elbow-up', { allow: []})
-    .when('elbow-down', { allow: [] })
-    .when('pivot-left', { allow: [] })
-    .when('pivot-right', { allow: [] })
-    .when('shoulder-up', { allow: [] })
-    .when('shoulder-down', { allow: []})
+    .when('open-claw', { allow: ['standby'] })
+    .when('close-claw', { allow: ['standby']})
+    .when('elbow-up', { allow: ['standby']})
+    .when('elbow-down', { allow: ['standby'] })
+    .when('pivot-left', { allow: ['standby'] })
+    .when('pivot-right', { allow: ['standby'] })
+    .when('shoulder-up', { allow: ['standby'] })
+    .when('shoulder-down', { allow: ['standby']})
     .map('standby', this.standby)
     .map('open-claw', this.openClaw)
     .map('close-claw', this.closeClaw)
@@ -45,8 +45,10 @@ RobotArm.prototype.standby = function(cb) {
 
 RobotArm.prototype.openClaw = function(cb) {
   this.state = 'open-claw';
+  
   var self = this;
   this._robot.openGripper(function() {
+
     self.call('standby');
     cb();
   });
