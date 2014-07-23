@@ -23,7 +23,7 @@ ScreenScout.prototype.init = function(next){
     }
     self._serialPort.on('data', function(data) {
       if (data === 'ready') {
-        var query = self.server.where({ type: 'screen' });
+        var query = self.server.where({ type: 'display' });
         self.server.find(query, function(err, results) {
           if(err) {
             return;
