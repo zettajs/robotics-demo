@@ -31,7 +31,7 @@ zetta()
   .load(ClapperApp)
   .load(HueArmBlink)
   .load(ScreenUpdateApp)
-  .link(process.env.ZETTA_CLOUD || 'http://zetta-cloud.herokuapp.com')
+  .link(process.env.ZETTA_CLOUD || 'http://zetta-cloud-2.herokuapp.com')
   .listen(PORT, function(err) {
     if (err) {
       console.error(err);
