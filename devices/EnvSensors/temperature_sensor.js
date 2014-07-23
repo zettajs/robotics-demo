@@ -4,7 +4,7 @@ var Device = require('zetta').Device;
 var TemperatureSensor = module.exports = function(emitter, ip) {
   this.ipAddress = ip;
   this.temperature = null;
-  this._emitter = emitter;
+  this._tempEmitter = emitter;
   Device.call(this);
 };
 util.inherits(TemperatureSensor, Device);
@@ -18,7 +18,7 @@ TemperatureSensor.prototype.init = function(config) {
     .state('on')
     .monitor('temperature');
 
-  this._emitter.on('temperature', function(data){
+  this._tempEmitter.on('temperature', function(data){
     self.temperature = Number(data);
   });
 };
