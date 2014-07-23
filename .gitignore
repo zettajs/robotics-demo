@@ -3,3 +3,5 @@ node_modules
 npm-debug.log
 registry.json
 .build
+.peers
+.registry
