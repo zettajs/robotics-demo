@@ -14,10 +14,9 @@ var ClapperApp = require('./apps/clapper');
 var HueArmBlink = require('./apps/hue_arm_blink');
 var ScreenUpdateApp = require('./apps/screen_update');
 
-var app = zetta();
-app.id = '5904d29f-62a8-4224-a113-51057b5bd899';
+var PORT = process.env.PORT || 3000;
 
-app
+zetta()
   .name(process.env.ZETTA_NAME || 'local')
   .expose('*')
   .use(Hue)
@@ -33,4 +32,10 @@ app
   .load(HueArmBlink)
   .load(ScreenUpdateApp)
   .link(process.env.ZETTA_CLOUD || 'http://zetta-cloud.herokuapp.com')
-  .listen(process.env.PORT || 3000);
+  .listen(PORT, function(err) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log('Listening on port', PORT);
+  });
