@@ -7,7 +7,7 @@ module.exports = function(server) {
 
   var sound = server.where({ type: 'sound' });
   var arm = server.where({ type: 'arm' });
-  var huelight = server.where({ type: 'huebulb', bulbId: 'Zetta Demo' });
+  var huelight = server.where({ type: 'huebulb', bulbName: 'Zetta Demo' });
   var display = server.where({ type: 'display' });
   var apigee = server.where({ type: 'apigee' });
 
