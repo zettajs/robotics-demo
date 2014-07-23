@@ -7,14 +7,14 @@ module.exports = function(server) {
 
   var sound = server.where({ type: 'sound' });
   var arm = server.where({ type: 'arm' });
-  var huehub = server.where({ type: 'huehub' });
+  var huelight = server.where({ type: 'huebulb', bulbId: 'Zetta Demo' });
   var display = server.where({ type: 'display' });
   var apigee = server.where({ type: 'apigee' });
 
   server
-    .observe([sound, arm, huehub, display, apigee], function(sound, arm, huehub, display, apigee) {
+    .observe([sound, arm, huelight, display, apigee], function(sound, arm, huelight, display, apigee) {
       server.log('Clapper Logic Activated');
-      var gocrazy = new GoCrazy(arm, huehub, display, apigee);
+      var gocrazy = new GoCrazy(arm, huelight, display, apigee);
       
       var lastY = undefined;
       var dy = undefined;
