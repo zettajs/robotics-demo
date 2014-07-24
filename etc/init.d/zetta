@@ -52,7 +52,8 @@ stop_app (){
         echo "Killing `cat $PID_FILE`"
         kill `cat $PID_FILE`;
         rm -f $PID_FILE;
-        mv $LOG_FILE `date +"%s"`-$LOG_FILE 
+        mkdir -p /var/log/zetta
+        mv $LOG_FILE /var/log/zetta/`date +"%s"`.log
         echo "Node stopped"
     fi
 }
