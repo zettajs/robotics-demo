@@ -52,6 +52,7 @@ stop_app (){
         echo "Killing `cat $PID_FILE`"
         kill `cat $PID_FILE`;
         rm -f $PID_FILE;
+        mv $LOG_FILE `date +"%s"`-$LOG_FILE 
         echo "Node stopped"
     fi
 }
