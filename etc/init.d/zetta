@@ -8,7 +8,7 @@ export ZETTA_CLOUD="http://zetta-cloud-2.herokuapp.com"
 export PORT=3001
 
 NODE_ENV="production"
-APP_DIR="/home/root/zetta/robotics-demo"
+APP_DIR="/root/zetta/robotics-demo"
 PID_FILE="/var/run/zetta.pid"
 LOG_FILE="/var/log/zetta.log"
 
