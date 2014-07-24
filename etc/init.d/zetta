@@ -40,10 +40,6 @@ start_app (){
     echo "$NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &"
     $NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &
     echo $! > $PID_FILE;
-    
-    if [ -f $PID_FILE ]; then
-	rm -f $PID_FILE
-    fi
 }
 
 stop_app (){
