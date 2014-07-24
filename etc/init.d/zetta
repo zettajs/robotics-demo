@@ -37,7 +37,7 @@ start_app (){
     fi
 
     echo "Starting node app..."
-    echo "$NODE_EXEC run --app $APP_DIR/$NODE_APP  1>$LOG_FILE 2>&1 &"
+    echo "$NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &"
     $NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &
     echo $! > $PID_FILE;
     
@@ -62,7 +62,6 @@ stop_app (){
 
 case "$1" in
     start)
-        stop_app
         start_app
     ;;
 
