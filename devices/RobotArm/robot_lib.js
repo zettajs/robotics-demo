@@ -51,10 +51,10 @@ Robot.prototype.shoulderDown = function(cb) {
   this._sendCommand("SHOULDER", "FORWARD", cb);
 };
 
-Robot.prototype.pivotLeft = function(cb) {
+Robot.prototype.pivotRight = function(cb) {
   this._sendCommand("PIVOT", "FORWARD", cb);
 };
 
-Robot.prototype.pivotRight = function(cb) {
+Robot.prototype.pivotLeft = function(cb) {
   this._sendCommand("PIVOT", "BACKWARD", cb);
 };
