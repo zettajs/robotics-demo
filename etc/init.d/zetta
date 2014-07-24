@@ -1,20 +1,16 @@
 #!/bin/sh
 
-export PATH=$PATH:/opt/node/bin
-export SCREEN_DEVICE="/dev/ttyACM0"
-export APP_NAME="demo2"
-#export ZETTA_CLOUD="ws://10.0.0.126:3000"
+NODE_EXEC="/usr/bin/node"
 
+export SCREEN_DEVICE="/dev/ttyACM0"
+export ZETTA_NAME="Detroit"
+export ZETTA_CLOUD="http://zetta-cloud-2.herokuapp.com"
+export PORT=3001
 
 NODE_ENV="production"
-NODE_APP='app'
-APP_DIR='/home/pi/robotics-demo';
-PID_FILE=$APP_DIR/pid/app.pid
-LOG_FILE=$APP_DIR/log/app.log
-CONFIG_DIR=$APP_DIR/config
-PORT=3000
-# NODE_EXEC=`which zetta`
-NODE_EXEC='/opt/node/bin/zetta'
+APP_DIR="/home/root/zetta/robotics-demo"
+PID_FILE="/var/run/zetta.pid"
+LOG_FILE="/var/log/zetta.log"
 
 ###############
 
@@ -39,21 +35,15 @@ start_app (){
         # exit 1
 	stop_app
     fi
-	cd $APP_DIR
 
-	HOSTNAME=`hostname`
-	echo $APP_DIR/${HOSTNAME}_registry.json $APP_DIR/registry.json
-	cp $APP_DIR/${HOSTNAME}_registry.json $APP_DIR/registry.json
-
-	echo "Starting node app..."
-	echo "$NODE_EXEC run --app $APP_DIR/$NODE_APP  1>$LOG_FILE 2>&1 &"
-	$NODE_EXEC run --app $APP_DIR/$NODE_APP  1>$LOG_FILE 2>&1 &
-	echo $! > $PID_FILE;
-	wait $!
-
-	if [ -f $PID_FILE ]; then
-		rm -f $PID_FILE
-	fi
+    echo "Starting node app..."
+    echo "$NODE_EXEC run --app $APP_DIR/$NODE_APP  1>$LOG_FILE 2>&1 &"
+    $NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &
+    echo $! > $PID_FILE;
+    
+    if [ -f $PID_FILE ]; then
+	rm -f $PID_FILE
+    fi
 }
 
 stop_app (){
@@ -72,6 +62,7 @@ stop_app (){
 
 case "$1" in
     start)
+        stop_app
         start_app
     ;;
 
