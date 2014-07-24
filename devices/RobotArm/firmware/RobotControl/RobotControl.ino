@@ -11,43 +11,45 @@ UDP Broadcast and Sensor data transfer with Zetta.
 #include "MotorControl.h"
  
 #define GRIPPER_SPEED 150
-#define MOTOR_SPEED 250
-#define MOTOR_DURATION 300
- 
-unsigned long _lastBroadcast = 0;
-Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
- 
-MotorControl firstMotor(AFMS.getMotor(1),GRIPPER_SPEED,MOTOR_DURATION);
-MotorControl secondMotor(AFMS.getMotor(2),MOTOR_SPEED,MOTOR_DURATION);
-MotorControl thirdMotor(AFMS.getMotor(3),MOTOR_SPEED,MOTOR_DURATION);
-MotorControl fourthMotor(AFMS.getMotor(4),MOTOR_SPEED,MOTOR_DURATION);
+#define MOTOR_SPEED 200
+#define MOTOR_DURATION 200
+
+Adafruit_MotorShield AFMS;
+MotorControl* firstMotor;
+MotorControl* secondMotor;
+MotorControl* thirdMotor;
+MotorControl* fourthMotor;
  
 int status = WL_IDLE_STATUS;
-
+unsigned long _lastBroadcast = 0;
 char ssid[] = "Loft21";  //  your network SSID (name)
 char pass[] = "silkylotus997";       // your network password
-
-//char ssid[] = "apigeedemo";  //  your network SSID (name)
-//char pass[] = "apigeelabs";       // your network password
-
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
- 
 unsigned int localPort = 4097;      // local port to listen for UDP packets
 unsigned int remote = 5001;
- 
 boolean zettaAck = true;
- 
- 
 IPAddress zettaServer; //for connection to fog
 IPAddress broadcastServer;
- 
 const int ACK_PACKET_SIZE = 255; // Shouldn't really need all of this but I'm a bit greedy
- 
 byte packetBuffer[ACK_PACKET_SIZE]; //buffer to hold incoming and outgoing packets 
- 
+
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
  
+void initMotorSheild() {
+  AFMS = Adafruit_MotorShield();
+  firstMotor = new MotorControl(AFMS.getMotor(1), GRIPPER_SPEED, MOTOR_DURATION);
+  secondMotor = new MotorControl(AFMS.getMotor(2), MOTOR_SPEED, MOTOR_DURATION);
+  thirdMotor = new MotorControl(AFMS.getMotor(3), MOTOR_SPEED, MOTOR_DURATION);
+  fourthMotor = new MotorControl(AFMS.getMotor(4), MOTOR_SPEED, MOTOR_DURATION);
+  
+  AFMS.begin();
+  firstMotor->init();
+  secondMotor->init();
+  thirdMotor->init();
+  fourthMotor->init();
+}
+
 void setup() 
 {
   // Open serial communications and wait for port to open:
@@ -55,13 +57,6 @@ void setup()
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-  
-  AFMS.begin();
-  
-  firstMotor.init();
-  secondMotor.init();
-  thirdMotor.init();
-  fourthMotor.init();
   
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
@@ -78,21 +73,22 @@ void setup()
     status = WiFi.begin(ssid, pass);
  
     // wait 10 seconds for connection:
-    delay(10000);
+    delay(5000);
   }
  
   Serial.println("Connected to wifi");
   printWifiStatus(); 
   Serial.println("\nStarting connection to server...");
   Udp.begin(localPort);
+  
+  initMotorSheild();
 }
  
 void loop()
 {  
   
-  Serial.print("Loop");
   broadcastSearch();
-  Serial.print(".");
+
   int packetSize = Udp.parsePacket();
   if(zettaAck == false) {
     Serial.println("\nAttempting to pair with Zetta...");
@@ -125,31 +121,29 @@ void loop()
        
       if(code == 1) {
         Serial.println("Running first motor.");
-        firstMotor.move(dir);
+        firstMotor->move(dir);
       }
       else if(code == 2) {
         Serial.println("Running second motor.");
-        secondMotor.move(dir);
+        secondMotor->move(dir);
       }
       else if(code == 3) {
         Serial.println("Running third motor.");
-        thirdMotor.move(dir);
+        thirdMotor->move(dir);
       }
       else if(code == 4) {
         Serial.println("Running fourth motor.");
-        fourthMotor.move(dir);
+        fourthMotor->move(dir);
       }
-      
     }
   }
   
-  firstMotor.loop();
-  secondMotor.loop();
-  thirdMotor.loop();
-  fourthMotor.loop();
-  Serial.print(".");
+  firstMotor->loop();
+  secondMotor->loop();
+  thirdMotor->loop();
+  fourthMotor->loop();
+  
   delay(50);
-  Serial.println(".");
 }
  
 void broadcastSearch() {

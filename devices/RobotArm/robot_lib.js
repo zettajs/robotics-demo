@@ -35,11 +35,11 @@ Robot.prototype.closeGripper = function(cb) {
   this._sendCommand("GRIPPER", "FORWARD", cb);
 };
 
-Robot.prototype.elbowUp = function(cb) {
+Robot.prototype.elbowDown = function(cb) {
   this._sendCommand("ELBOW", "FORWARD", cb);
 };
 
-Robot.prototype.elbowDown = function(cb) {
+Robot.prototype.elbowUp = function(cb) {
   this._sendCommand("ELBOW", "BACKWARD", cb);
 };
 
