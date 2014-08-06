@@ -58,3 +58,39 @@ Robot.prototype.pivotRight = function(cb) {
 Robot.prototype.pivotLeft = function(cb) {
   this._sendCommand("PIVOT", "BACKWARD", cb);
 };
+
+Robot.prototype.pivot = function(direction, cb) {
+  var map = {
+    'left': 'BACKWARD',
+    'right': 'FORWARD'
+  };
+
+  this._sendCommand('PIVOT', map[direction], cb);
+};
+
+Robot.prototype.moveShoulder = function(direction, cb) {
+  var map = {
+    'up': 'BACKWARD',
+    'down': 'FORWARD'
+  };
+
+  this._sendCommand('SHOULDER', map[direction], cb);
+};
+
+Robot.prototype.moveElbow = function(direction, cb) {
+  var map = {
+    'up': 'BACKWARD',
+    'down': 'FORWARD'
+  };
+
+  this._sendCommand('ELBOW', map[direction], cb);
+};
+
+Robot.prototype.moveGripper = function(direction, cb) {
+  var map = {
+    'open': 'BACKWARD',
+    'close': 'FORWARD'
+  };
+
+  this._sendCommand('GRIPPER', map[direction], cb);
+};

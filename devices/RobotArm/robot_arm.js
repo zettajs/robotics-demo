@@ -16,24 +16,16 @@ RobotArm.prototype.init = function(config) {
     .type('arm')
     .name('Robot Arm')
     .state('standby')
-    .when('standby', { allow: ['open-claw', 'close-claw', 'elbow-up', 'elbow-down', 'shoulder-up', 'shoulder-down', 'pivot-left', 'pivot-right']})
-    .when('open-claw', { allow: ['standby'] })
-    .when('close-claw', { allow: ['standby']})
-    .when('elbow-up', { allow: ['standby']})
-    .when('elbow-down', { allow: ['standby'] })
-    .when('pivot-left', { allow: ['standby'] })
-    .when('pivot-right', { allow: ['standby'] })
-    .when('shoulder-up', { allow: ['standby'] })
-    .when('shoulder-down', { allow: ['standby']})
-    .map('standby', this.standby)
-    .map('open-claw', this.openClaw)
-    .map('close-claw', this.closeClaw)
-    .map('elbow-up', this.elbowUp)
-    .map('elbow-down', this.elbowDown)
-    .map('shoulder-up', this.shoulderUp)
-    .map('shoulder-down', this.shoulderDown)
-    .map('pivot-left', this.pivotLeft)
-    .map('pivot-right', this.pivotRight);
+    .when('standby', { allow: ['move-claw', 'move-elbow', 'move-shoulder', 'pivot'] })
+    .when('moving-claw', { allow: ['standby'] })
+    .when('moving-elbow', { allow: ['standby'] })
+    .when('pivoting', { allow: ['standby'] })
+    .when('moving-shoulder', { allow: ['standby']})
+    .map('standby', this.standby, [ { name: 'direction' } ])
+    .map('move-claw', this.moveClaw, [ { name: 'direction' } ])
+    .map('move-elbow', this.moveElbow, [ { name: 'direction' } ])
+    .map('move-shoulder', this.moveShoulder, [ { name: 'direction' } ])
+    .map('pivot', this.pivot, [ { name: 'direction' } ]);
 };
 
 RobotArm.prototype.standby = function(cb) {
@@ -43,75 +35,37 @@ RobotArm.prototype.standby = function(cb) {
   }
 };
 
-RobotArm.prototype.openClaw = function(cb) {
-  this.state = 'open-claw';
-  
+RobotArm.prototype.moveClaw = function(direction, cb) {
+  this.state = 'moving-claw';
   var self = this;
-  this._robot.openGripper(function() {
-
+  this._robot.moveGripper(direction, function() {
     self.call('standby');
     cb();
   });
 };
 
-RobotArm.prototype.closeClaw = function(cb) {
-  this.state = 'close-claw';
+RobotArm.prototype.moveElbow = function(direction, cb) {
+  this.state = 'moving-elbow';
   var self = this;
-  this._robot.closeGripper(function() {
+  this._robot.moveElbow(direction, function() {
     self.call('standby');
     cb();
   });
 };
 
-RobotArm.prototype.elbowUp = function(cb) {
-  this.state = 'elbow-up';
+RobotArm.prototype.moveShoulder = function(direction, cb) {
+  this.state = 'moving-shoulder';
   var self = this;
-  this._robot.elbowUp(function() {
+  this._robot.moveShoulder(direction, function() {
     self.call('standby');
     cb();
   });
 };
 
-RobotArm.prototype.elbowDown = function(cb) {
-  this.state = 'elbow-down';
+RobotArm.prototype.pivot = function(direction, cb) {
+  this.state = 'pivoting';
   var self = this;
-  this._robot.elbowDown(function() {
-    self.call('standby');
-    cb();
-  });
-};
-
-RobotArm.prototype.shoulderUp = function(cb) {
-  this.state = 'shoulder-up';
-  var self = this;
-  this._robot.shoulderUp(function() {
-    self.call('standby');
-    cb();
-  });
-};
-
-RobotArm.prototype.shoulderDown = function(cb) {
-  this.state = 'shoulder-down';
-  var self = this;
-  this._robot.shoulderDown(function() {
-    self.call('standby');
-    cb();
-  });
-};
-
-RobotArm.prototype.pivotLeft = function(cb) {
-  this.state = 'pivot-left';
-  var self = this;
-  this._robot.pivotLeft(function() {
-    self.call('standby');
-    cb();
-  });
-};
-
-RobotArm.prototype.pivotRight = function(cb) {
-  this.state = 'pivot-right';
-  var self = this;
-  this._robot.pivotRight(function() {
+  this._robot.pivot(direction, function() {
     self.call('standby');
     cb();
   });
