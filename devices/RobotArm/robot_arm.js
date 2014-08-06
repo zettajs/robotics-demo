@@ -21,8 +21,8 @@ RobotArm.prototype.init = function(config) {
     .when('moving-elbow', { allow: ['standby'] })
     .when('pivoting', { allow: ['standby'] })
     .when('moving-shoulder', { allow: ['standby']})
-    .map('standby', this.standby, [ { name: 'direction', type: 'radio', value: [ { value: 'open' }, { value: 'close' } ] } ])
-    .map('move-claw', this.moveClaw, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ] } ])
+    .map('standby', this.standby)
+    .map('move-claw', this.moveClaw, [ { name: 'direction', type: 'radio', value: [ { value: 'open' }, { value: 'close' } ] } ])
     .map('move-elbow', this.moveElbow, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ]  } ])
     .map('move-shoulder', this.moveShoulder, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ]  } ])
     .map('pivot', this.pivot, [ { name: 'direction', type: 'radio', value: [ { value: 'left' }, { value: 'right' } ]  } ]);
