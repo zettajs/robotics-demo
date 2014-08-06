@@ -21,11 +21,11 @@ RobotArm.prototype.init = function(config) {
     .when('moving-elbow', { allow: ['standby'] })
     .when('pivoting', { allow: ['standby'] })
     .when('moving-shoulder', { allow: ['standby']})
-    .map('standby', this.standby, [ { name: 'direction' } ])
-    .map('move-claw', this.moveClaw, [ { name: 'direction' } ])
-    .map('move-elbow', this.moveElbow, [ { name: 'direction' } ])
-    .map('move-shoulder', this.moveShoulder, [ { name: 'direction' } ])
-    .map('pivot', this.pivot, [ { name: 'direction' } ]);
+    .map('standby', this.standby, [ { name: 'direction', type: 'radio', value: [ { value: 'open' }, { value: 'close' } ] } ])
+    .map('move-claw', this.moveClaw, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ] } ])
+    .map('move-elbow', this.moveElbow, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ]  } ])
+    .map('move-shoulder', this.moveShoulder, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ]  } ])
+    .map('pivot', this.pivot, [ { name: 'direction', type: 'radio', value: [ { value: 'left' }, { value: 'right' } ]  } ]);
 };
 
 RobotArm.prototype.standby = function(cb) {
