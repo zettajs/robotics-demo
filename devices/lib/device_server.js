@@ -15,28 +15,28 @@ DeviceServer.prototype.start = function(){
 
   var server = dgram.createSocket("udp4");
   server.on('error', function(err) {
-    console.error(err);
+    console.error('Server:', err);
     server.close();
     this.emit('error', err);
   });
 
-  server.on('message', function(msg, info){ 
+  server.on('message', function(msg, info){
     var packet = null;
     try {
       packet = JSON.parse(msg);
     }catch(err){
-      console.error(err);
+      console.error('JSON Error:', err);
       return;
     }
-    
+
     self.emit('message', packet, info);
-    
+
     if (!packet.data && typeof packet.data !== 'object') {
       return;
     }
-    
+
     var keys = Object.keys(packet.data);
-    keys.forEach(function(key) {  
+    keys.forEach(function(key) {
       if(self.streams.indexOf(key) !== -1) {
         self.emit(key, packet.data[key]);
       } else {
@@ -44,7 +44,7 @@ DeviceServer.prototype.start = function(){
         self.emit('stream', key, info);
       }
     });
-    
+
   });
   server.bind(this.port);
 };
