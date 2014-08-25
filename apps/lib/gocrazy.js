@@ -21,7 +21,6 @@ GoCrazy.prototype.notify = function() {
 GoCrazy.prototype._flashHue = function() {
   if(this.hue.state !== 'registered'){
     console.log('hue not registrerd')
-    console.log(this.hue)
     return;
   }
   
