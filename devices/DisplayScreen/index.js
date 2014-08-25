@@ -19,7 +19,7 @@ ScreenScout.prototype.init = function(next){
   var self = this;
   this._serialPort.on('open', function(err) {
     if (err) {
-      console.log('error on open:', err);
+      console.log('DisplayScreen error:', err);
     }
     self._serialPort.on('data', function(data) {
       if (data === 'ready') {
