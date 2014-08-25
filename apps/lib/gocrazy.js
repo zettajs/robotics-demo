@@ -10,7 +10,6 @@ var GoCrazy = module.exports = function(arm,hue,screen,push) {
 };
 
 GoCrazy.prototype.notify = function() {
-  
   this._moveArm();
   this._flashHue();
   this.screen.call('change','Alarm was raised!', function(){});
@@ -19,17 +18,11 @@ GoCrazy.prototype.notify = function() {
 
 
 GoCrazy.prototype._flashHue = function() {
-  if(this.hue.state !== 'registered'){
-    console.log('hue not registrerd')
-    return;
-  }
-  
   var self = this;
   this.hue.call('color-loop', function(){});
   setTimeout(function(){
     self.hue.call('all-on', function(){});
   },5000)
-
 };
 
 
