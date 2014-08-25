@@ -28,6 +28,11 @@ LOG_FILE="/var/log/zetta.log"
 # Description: Node process for app
 ### END INIT INFO
 
+clean_up_medea (){
+    rm -f $APP_DIR/.peers/medea.lock
+    rm -f $APP_DIR/.registry/medea.lock
+}
+
 start_app (){
     if [ -f $PID_FILE ]
     then
@@ -37,6 +42,7 @@ start_app (){
     fi
 
     echo "Starting node app..."
+    clean_up_medea
     cd $APP_DIR
     echo "$NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &"
     $NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &
