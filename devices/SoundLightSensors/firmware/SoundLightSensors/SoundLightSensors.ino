@@ -11,15 +11,14 @@
  
 int status = WL_IDLE_STATUS;
 
-char ssid[] = "Loft21";
-char pass[] = "silkylotus997";
+char ssid[] = "apigeeroaddemo";
+char pass[] = "apigeelabs";
 
 //char ssid[] = "apigeedemo";  //  your network SSID (name)
 //char pass[] = "apigeelabs";       // your network password
-
  
 unsigned int localPort = 4097;
-unsigned int remote = 5001;
+unsigned int remote = 5000;
  
 boolean zettaAck = true;
  
