@@ -19,21 +19,18 @@ ScreenScout.prototype.init = function(next){
   var self = this;
   this._serialPort.on('open', function(err) {
     if (err) {
-      console.log('DisplayScreen error:', err);
+      console.error('DisplayScreen error:', err);
+      return;
     }
-    self._serialPort.on('data', function(data) {
-      if (data === 'ready') {
-        var query = self.server.where({ type: 'display' });
-        self.server.find(query, function(err, results) {
-          if(err) {
-            return;
-          }
-          if (results.length) {
-            self.provision(results[0], Screen, self._serialPort);
-          } else {
-            self.discover(Screen, self._serialPort);
-          }
-        });
+    var query = self.server.where({ type: 'display' });
+    self.server.find(query, function(err, results) {
+      if(err) {
+        return;
+      }
+      if (results.length) {
+        self.provision(results[0], Screen, self._serialPort);
+      } else {
+        self.discover(Screen, self._serialPort);
       }
     });
     next();
