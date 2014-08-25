@@ -13,8 +13,8 @@ GoCrazy.prototype.notify = function() {
   
   this._moveArm();
   this._flashHue();
-  this.screen.call('change','Alarm was raised!');
-  this.push.call('push','Alarm was raised!');
+  this.screen.call('change','Alarm was raised!', function(){});
+  this.push.call('push','Alarm was raised!', function(){});
 };
 
 
@@ -26,9 +26,9 @@ GoCrazy.prototype._flashHue = function() {
   }
   
   var self = this;
-  this.hue.call('color-loop');
+  this.hue.call('color-loop', function(){});
   setTimeout(function(){
-    self.hue.call('all-on');
+    self.hue.call('all-on', function(){});
   },5000)
 
 };
