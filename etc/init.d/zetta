@@ -37,6 +37,7 @@ start_app (){
     fi
 
     echo "Starting node app..."
+    cd $APP_DIR
     echo "$NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &"
     $NODE_EXEC $APP_DIR/server.js 1>$LOG_FILE 2>&1 &
     echo $! > $PID_FILE;
