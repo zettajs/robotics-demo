@@ -17,10 +17,10 @@ RobotArm.prototype.init = function(config) {
     .name('Robot Arm')
     .state('standby')
     .when('standby', { allow: ['move-claw', 'move-elbow', 'move-shoulder', 'pivot'] })
-    .when('moving-claw', { allow: ['standby'] })
-    .when('moving-elbow', { allow: ['standby'] })
-    .when('pivoting', { allow: ['standby'] })
-    .when('moving-shoulder', { allow: ['standby']})
+    .when('moving-claw', { allow: ['standby', 'move-claw', 'move-elbow', 'move-shoulder', 'pivot'] })
+    .when('moving-elbow', { allow: ['standby', 'move-claw', 'move-elbow', 'move-shoulder', 'pivot'] })
+    .when('pivoting', { allow: ['standby', 'move-claw', 'move-elbow', 'move-shoulder', 'pivot'] })
+    .when('moving-shoulder', { allow: ['standby', 'move-claw', 'move-elbow', 'move-shoulder', 'pivot']})
     .map('standby', this.standby)
     .map('move-claw', this.moveClaw, [ { name: 'direction', type: 'radio', value: [ { value: 'open' }, { value: 'close' } ] } ])
     .map('move-elbow', this.moveElbow, [ { name: 'direction', type: 'radio', value: [ { value: 'up' }, { value: 'down' } ]  } ])
@@ -39,7 +39,7 @@ RobotArm.prototype.moveClaw = function(direction, cb) {
   this.state = 'moving-claw';
   var self = this;
   this._robot.moveGripper(direction, function() {
-    self.call('standby');
+    self.call('standby', function(){});
     cb();
   });
 };
@@ -48,7 +48,7 @@ RobotArm.prototype.moveElbow = function(direction, cb) {
   this.state = 'moving-elbow';
   var self = this;
   this._robot.moveElbow(direction, function() {
-    self.call('standby');
+    self.call('standby', function(){});
     cb();
   });
 };
@@ -57,7 +57,7 @@ RobotArm.prototype.moveShoulder = function(direction, cb) {
   this.state = 'moving-shoulder';
   var self = this;
   this._robot.moveShoulder(direction, function() {
-    self.call('standby');
+    self.call('standby', function(){});
     cb();
   });
 };
@@ -66,7 +66,7 @@ RobotArm.prototype.pivot = function(direction, cb) {
   this.state = 'pivoting';
   var self = this;
   this._robot.pivot(direction, function() {
-    self.call('standby');
+    self.call('standby', function(){});
     cb();
   });
 };

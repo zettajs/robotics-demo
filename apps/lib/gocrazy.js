@@ -6,7 +6,6 @@ var GoCrazy = module.exports = function(arm,hue,screen,push) {
   this.screen = screen;
   this.hue = hue;
   this.push = push;
-
 };
 
 GoCrazy.prototype.notify = function() {
@@ -28,10 +27,14 @@ GoCrazy.prototype._flashHue = function() {
 
 GoCrazy.prototype._moveArm = function() {
   var self = this;
-  function F(f,delay){
+  function F(f, dir, delay){
     return function(cb){
-      self.arm.call(f,function(){});
-      setTimeout(cb,delay);
+      self.arm.call(f, dir, function(err){
+        if (err) {
+          console.error('gocrazy arm error:', err);
+        }
+      });
+      setTimeout(cb, delay);
     };
   }
 
@@ -43,87 +46,73 @@ GoCrazy.prototype._moveArm = function() {
   
   var d = 200;
   async.series([
-    F('pivot-right',d),
-    F('pivot-right',d),
+    F('pivot', 'right', d),
+    F('pivot', 'right', d),
     D(d*2),
-    F('pivot-left',d),
-    F('pivot-left',d),
+    F('pivot', 'left', d),
+    F('pivot', 'left', d),
     D(d*2),
-    F('pivot-right',d),
-    F('pivot-right',d),
+    F('pivot', 'right', d),
+    F('pivot', 'right', d),
     D(d*2),
-    F('pivot-left',d),
-    F('pivot-left',d),
+    F('pivot', 'left', d),
+    F('pivot', 'left', d),
     D(d*2),    
-    F('pivot-right',d),
-    F('pivot-right',d),
+    F('pivot', 'right', d),
+    F('pivot', 'right', d),
     D(d*2),
-    F('pivot-left',d),
-    F('pivot-left',d),
+    F('pivot', 'left', d),
+    F('pivot', 'left', d),
   ],function(){});
 
   var d2 = 250;
   async.series([
-    F('elbow-up',d2),
-    F('elbow-up',d2),
+    F('move-elbow', 'up', d2),
+    F('move-elbow', 'up', d2),
     D(d2*2),
-    F('elbow-down',d2),
-    F('elbow-down',d2),
+    F('move-elbow', 'down', d2),
+    F('move-elbow', 'down', d2),
     D(d2*2),
-    F('elbow-up',d2),
-    F('elbow-up',d2),
+    F('move-elbow', 'up', d2),
+    F('move-elbow', 'up', d2),
     D(d2*2),
-    F('elbow-down',d2),
-    F('elbow-down',d2),
+    F('move-elbow', 'down', d2),
+    F('move-elbow', 'down', d2),
     D(d2*2),    
-    F('elbow-up',d2),
-    F('elbow-up',d2),
+    F('move-elbow', 'up', d2),
+    F('move-elbow', 'up', d2),
     D(d2*2),
-    F('elbow-down',d2),
-    F('elbow-down',d2),
+    F('move-elbow', 'down', d2),
+    F('move-elbow', 'down', d2),
   ],function(){});
-
-
 
   var d3 = 225;
   async.series([
-    F('shoulder-up',d3),
-    F('shoulder-up',d3),
+    F('move-shoulder', 'up', d3),
+    F('move-shoulder', 'up', d3),
     D(d3*2),
-    F('shoulder-down',d3),
-    F('shoulder-down',d3),
+    F('move-shoulder', 'down', d3),
+    F('move-shoulder', 'down', d3),
     D(d3*2),
-    F('shoulder-up',d3),
-    F('shoulder-up',d3),
+    F('move-shoulder', 'up', d3),
+    F('move-shoulder', 'up', d3),
     D(d3*2),
-    F('shoulder-down',d3),
-    F('shoulder-down',d3),
+    F('move-shoulder', 'down', d3),
+    F('move-shoulder', 'down', d3),
     D(d3*2),    
-    F('shoulder-up',d3),
-    F('shoulder-up',d3),
+    F('move-shoulder', 'up', d3),
+    F('move-shoulder', 'up', d3),
     D(d3*2),
-    F('shoulder-down',d3),
-    F('shoulder-down',d3),
+    F('move-shoulder', 'down', d3),
+    F('move-shoulder', 'down', d3),
     D(d3*2),    
-    F('shoulder-up',d3),
-    F('shoulder-up',d3),
+    F('move-shoulder' ,'up', d3),
+    F('move-shoulder', 'up', d3),
     D(d3*2),
     D(d3*2),    
-    F('shoulder-up',d3),
-    F('shoulder-up',d3),
+    F('move-shoulder', 'up', d3),
+    F('move-shoulder', 'up', d3),
 
   ],function(){});
 
-
-
-
-/*
-  async.series([
-    F('elbow-up',d),
-    F('elbow-up',d),
-    D(d*2),
-    F('elbow-down',d),
-    F('elbow-down',d),
-  ],function(){});
-*/
 };

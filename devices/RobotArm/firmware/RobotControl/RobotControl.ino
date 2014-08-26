@@ -22,8 +22,10 @@ MotorControl* fourthMotor;
  
 int status = WL_IDLE_STATUS;
 unsigned long _lastBroadcast = 0;
-char ssid[] = "Loft21";  //  your network SSID (name)
-char pass[] = "silkylotus997";       // your network password
+
+char ssid[] = "apigeeroaddemo";  //  your network SSID (name)
+char pass[] = "apigeelabs";       // your network password
+
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 unsigned int localPort = 4097;      // local port to listen for UDP packets
 unsigned int remote = 5001;
