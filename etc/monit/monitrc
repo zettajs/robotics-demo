@@ -250,4 +250,3 @@
 ## directories.
 #
    include /etc/monit/conf.d/*
-#
