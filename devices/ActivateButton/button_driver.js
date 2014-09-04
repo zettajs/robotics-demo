@@ -1,11 +1,16 @@
+var util = require('util');
+var Device = require('zetta').Device;
+
 var ButtonDriver = module.exports = function() {
-  this.type = 'button';
-  this.name = 'ActivateButton';
-  this.state = 'up';
+  Device.call(this);
 };
+util.inherits(ButtonDriver, Device);
 
 ButtonDriver.prototype.init = function(config) {
   config
+    .state('up')
+    .name('Activate Button')
+    .type('button')
     .when('down', { allow: ['lift', 'click'] })
     .when('up', { allow: ['press', 'click'] })
     .map('press', this.press)
