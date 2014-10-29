@@ -8,7 +8,6 @@ var LinuxCommands = require('./devices/LinuxCommands');
 var RobotArm = require('./devices/RobotArm');
 var DisplayScreen = require('./devices/DisplayScreen');
 var PhoneAccelerometer = require('./devices/PhoneAccelerometer/phone_accelerometer');
-var ActivateButton = require('./devices/ActivateButton');
 
 var ButtonPressApp = require('./apps/button_press');
 var ClapperApp = require('./apps/clapper');
@@ -20,7 +19,6 @@ var PORT = process.env.PORT || 3000;
 zetta()
   .name(process.env.ZETTA_NAME || 'local')
   .expose('*')
-  .use(ActivateButton)
   .use(Hue)
   .use(PushNotification)
   .use(EnvSensors)
@@ -29,7 +27,6 @@ zetta()
   .use(RobotArm)
   .use(DisplayScreen, process.env.SCREEN_DEVICE)
   .use(PhoneAccelerometer, { http_device: true })
-  .load(ButtonPressApp)
   .load(ClapperApp)
   .load(HueArmBlink)
   .load(ScreenUpdateApp)
