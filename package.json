@@ -21,7 +21,7 @@
     "serialport": "^1.4.0",
     "zetta": "^0.18.0",
     "zetta-apigee-driver": ">=0.0.8",
-    "zetta-hue-driver": ">=0.0.11",
+    "zetta-hue-driver": ">=0.4.0",
     "zetta-auto-scout": "^0.6.0"
   }
 }
